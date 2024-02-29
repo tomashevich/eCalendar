@@ -12,6 +12,10 @@ namespace CalendarCalculatorUI
 {
     public sealed partial class MainWindow : Window
     {
+        private const string _fullDateFormat = "yyyy-MMM-dd HH:mm";
+        private const string _dateFormat = "yyyy-MMM-dd";
+        private const string _shortDateFormat = "MMM-dd";
+
         DateTime startDateTime;
         DateTime recurringHoliday;
         DateTime holiday;
@@ -31,9 +35,9 @@ namespace CalendarCalculatorUI
 
             startTimePicker.SelectedTime = new TimeSpan(startDateTime.Hour, startDateTime.Minute, 0);
             StartDatePicker.SelectedDate = startDateTime;
-            startDateText.Text = startDateTime.ToString("yyyy-MMM-dd HH:mm");
-            holidaysText.Text = string.Join("  ", _calendar.GetHolidays().Select(d => d.ToString("yyyy-MMM-dd")).ToArray());
-            recurrentHolidayslText.Text = string.Join("  ", _calendar.GetRecurringHolidays().Select(d => new DateOnly(2000, d.Month, d.Day).ToString("MMM-dd")).ToArray());
+            startDateText.Text = startDateTime.ToString(_fullDateFormat);
+            holidaysText.Text = string.Join("  ", _calendar.GetHolidays().Select(d => d.ToString(_dateFormat)).ToArray());
+            recurrentHolidayslText.Text = string.Join("  ", _calendar.GetRecurringHolidays().Select(d => new DateOnly(2000, d.Month, d.Day).ToString(_shortDateFormat)).ToArray());
         }
 
         private void StartTimePicker_SelectedTimeChanged(TimePicker sender, TimePickerSelectedValueChangedEventArgs args)
@@ -53,7 +57,7 @@ namespace CalendarCalculatorUI
             {
                 startDateTime = new DateTime(args.NewDate.Value.Year, args.NewDate.Value.Month, args.NewDate.Value.Day,
                                                    startDateTime.Hour, startDateTime.Minute, startDateTime.Second);
-                startDateText.Text = startDateTime.ToString("yyyy-MMM-dd HH:mm");
+                startDateText.Text = startDateTime.ToString(_fullDateFormat);
             }
         }
 
@@ -62,7 +66,6 @@ namespace CalendarCalculatorUI
             if (startWorkTimePicker.SelectedTime != null)
             {
                 var workingHours = _calendar.GetWorkingHours();
-
                 _calendar.SetWorkingHours(args.NewTime.Value.Hours, args.NewTime.Value.Minutes, 
                                                 workingHours.EndHour, workingHours.EndMinute);
             }
@@ -73,7 +76,6 @@ namespace CalendarCalculatorUI
             if (endWorkTimePicker.SelectedTime != null)
             {
                 var workingHours = _calendar.GetWorkingHours();
-
                 _calendar.SetWorkingHours(workingHours.StartHour, workingHours.StartMinute,
                                                 args.NewTime.Value.Hours, args.NewTime.Value.Minutes);
 
@@ -93,24 +95,21 @@ namespace CalendarCalculatorUI
         private void CalculateDateButton_Click(object sender, RoutedEventArgs e)
         {
             var result = _calendar.GetFinishDate(startDateTime, (decimal)DaysNumberBoxValue);
-            resultText.Text = "Result: " + result.ToString("yyyy-MMM-dd HH:mm");
+            resultText.Text = "Result: " + result.ToString(_fullDateFormat);
         }
 
         private void AddRecurrentHolidayButton_Click(object sender, RoutedEventArgs e)
         {
             _calendar.AddRecurringHoliday(recurringHoliday.Month, recurringHoliday.Day);
-
             var holidays = _calendar.GetRecurringHolidays();
-
-            recurrentHolidayslText.Text = string.Join("  ", holidays.Select(d => new DateOnly(2000, d.Month, d.Day).ToString("MMM-dd")).ToArray());
+            recurrentHolidayslText.Text = string.Join("  ", holidays.Select(d => new DateOnly(2000, d.Month, d.Day).ToString(_shortDateFormat)).ToArray());
         }
 
         private void AddHolidayDateButton_Click(object sender, RoutedEventArgs e)
         {
             _calendar.AddHoliday(new DateOnly(holiday.Year, holiday.Month, holiday.Day));
-
             var holidays = _calendar.GetHolidays();
-            holidaysText.Text = string.Join("  ", holidays.Select(d => d.ToString("yyyy-MMM-dd")).ToArray());
+            holidaysText.Text = string.Join("  ", holidays.Select(d => d.ToString(_dateFormat)).ToArray());
         }
     }
 }

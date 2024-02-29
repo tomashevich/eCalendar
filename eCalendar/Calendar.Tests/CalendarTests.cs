@@ -73,7 +73,6 @@ namespace eCalendar.Tests
             Assert.Equal(expectedDate, expectedString);
         }
 
-
         [Theory]
         [InlineData("2009-05-01 14:57", -1, "2009-04-30 14:57")]
         [InlineData("2009-05-01 16:00", -1, "2009-05-01 08:00")]
@@ -97,7 +96,6 @@ namespace eCalendar.Tests
             var expectedString = result.ToString("yyyy-MM-dd HH:mm");
             Assert.Equal(expectedDate, expectedString);
         }
-
 
         [Theory]
         [InlineData("2009-05-01 6:57", 0.5, "2009-05-01 12:00")]

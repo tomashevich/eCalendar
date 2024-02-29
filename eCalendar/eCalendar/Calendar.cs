@@ -72,11 +72,8 @@
                     }
                     else
                     {
-                        //proceed working day
-                        //get amount of available time for current day
-                        var currentTime = new TimeOnly(currentDate.Hour, currentDate.Minute, 0);
-                        var endOfWorkingDayTime = new TimeOnly(_endWorkingHour, _endWorkingMinute, 0);
-                        var startOfWorkingDayTime = new TimeOnly(_startWorkingHour, _startWorkingMinute, 0);
+                        TimeOnly currentTime, endOfWorkingDayTime, startOfWorkingDayTime;
+                        InitWorkingDay(currentDate, out currentTime, out endOfWorkingDayTime, out startOfWorkingDayTime);
 
                         if (currentTime < endOfWorkingDayTime)
                         {
@@ -126,11 +123,8 @@
                     }
                     else
                     {
-                        //proceed working day
-                        //get amount of available time for current day
-                        var currentTime = new TimeOnly(currentDate.Hour, currentDate.Minute, 0);
-                        var endOfWorkingDayTime = new TimeOnly(_endWorkingHour, _endWorkingMinute, 0);
-                        var startOfWorkingDayTime = new TimeOnly(_startWorkingHour, _startWorkingMinute, 0);
+                        TimeOnly currentTime, endOfWorkingDayTime, startOfWorkingDayTime;
+                        InitWorkingDay(currentDate, out currentTime, out endOfWorkingDayTime, out startOfWorkingDayTime);
 
                         if (currentTime > startOfWorkingDayTime)
                         {
@@ -169,6 +163,13 @@
 
                 return currentDate;
             }
+        }
+
+        private void InitWorkingDay(DateTime currentDate, out TimeOnly currentTime, out TimeOnly endOfWorkingDayTime, out TimeOnly startOfWorkingDayTime)
+        {
+            currentTime = new TimeOnly(currentDate.Hour, currentDate.Minute, 0);
+            endOfWorkingDayTime = new TimeOnly(_endWorkingHour, _endWorkingMinute, 0);
+            startOfWorkingDayTime = new TimeOnly(_startWorkingHour, _startWorkingMinute, 0);
         }
 
         private bool IsHoliday(DateTime currentDate)
