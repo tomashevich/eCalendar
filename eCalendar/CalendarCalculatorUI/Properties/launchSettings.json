@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CalendarCalculatorUI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "CalendarCalculatorUI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
