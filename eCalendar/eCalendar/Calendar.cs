@@ -28,7 +28,6 @@
             _startWorkingMinute = startMinutes;
             _endWorkingHour = endHour;
             _endWorkingMinute = endMinutes;
-
         } 
         
         public void AddRecurringHoliday(int month, int day)
@@ -49,6 +48,11 @@
         public List<(int Month, int Day)> GetRecurringHolidays()
         {
             return _recurringHolidays;
+        }
+
+        public (int StartHour, int StartMinute, int EndHour, int EndMinute) GetWorkingHours()
+        {
+            return new (_startWorkingHour, _startWorkingMinute, _endWorkingHour, _endWorkingMinute);
         }
 
         public DateTime GetFinishDate(DateTime start, decimal addWorkingDays)

@@ -21,9 +21,9 @@ namespace CalendarCalculatorUI
 
         public MainWindow()
         {
-            this.InitializeComponent();
-
             _calendar = new Calendar();
+            this.InitializeComponent();
+           
             _calendar.AddHoliday(new DateOnly(2024, 1, 1));
             _calendar.AddRecurringHoliday(5, 17);
 
@@ -54,6 +54,29 @@ namespace CalendarCalculatorUI
                 startDateTime = new DateTime(args.NewDate.Value.Year, args.NewDate.Value.Month, args.NewDate.Value.Day,
                                                    startDateTime.Hour, startDateTime.Minute, startDateTime.Second);
                 startDateText.Text = startDateTime.ToString("yyyy-MMM-dd HH:mm");
+            }
+        }
+
+        private void StartWorkPicker_SelectedTimeChanged(TimePicker sender, TimePickerSelectedValueChangedEventArgs args)
+        {
+            if (startWorkTimePicker.SelectedTime != null)
+            {
+                var workingHours = _calendar.GetWorkingHours();
+
+                _calendar.SetWorkingHours(args.NewTime.Value.Hours, args.NewTime.Value.Minutes, 
+                                                workingHours.EndHour, workingHours.EndMinute);
+            }
+        }
+
+        private void EndWorkPicker_SelectedTimeChanged(TimePicker sender, TimePickerSelectedValueChangedEventArgs args)
+        {
+            if (endWorkTimePicker.SelectedTime != null)
+            {
+                var workingHours = _calendar.GetWorkingHours();
+
+                _calendar.SetWorkingHours(workingHours.StartHour, workingHours.StartMinute,
+                                                args.NewTime.Value.Hours, args.NewTime.Value.Minutes);
+
             }
         }
 

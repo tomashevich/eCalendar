@@ -97,5 +97,28 @@ namespace eCalendar.Tests
             var expectedString = result.ToString("yyyy-MM-dd HH:mm");
             Assert.Equal(expectedDate, expectedString);
         }
+
+
+        [Theory]
+        [InlineData("2009-05-01 6:57", 0.5, "2009-05-01 12:00")]
+        [InlineData("2009-05-01 7:57", 0.5, "2009-05-01 12:57")]
+        [InlineData("2009-05-01 7:00", 1, "2009-05-01 17:00")]
+        [InlineData("2009-05-01 7:57", -0.1, "2009-04-30 16:57")]
+        [InlineData("2009-05-01 17:01", -1, "2009-05-01 07:00")]
+        public void ShouldCountWorkingDaysWithDifferentWorkingHours(string startDateStr, decimal days, string expectedDate)
+        {
+            //arrange
+            var _calendar = new Calendar();
+            _calendar.SetWorkingHours(7,0,17,0);
+
+            DateTime.TryParse(startDateStr, out var startDate);
+
+            //act
+            var result = _calendar.GetFinishDate(startDate, days);
+
+            //assert
+            var expectedString = result.ToString("yyyy-MM-dd HH:mm");
+            Assert.Equal(expectedDate, expectedString);
+        }
     }
 }

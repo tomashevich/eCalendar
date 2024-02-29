@@ -22,7 +22,7 @@
 
             <Rectangle 
                 Width="300"
-                Height="100"
+                Height="50"
                  />
 
             <TextBlock x:Name="holidayLabelText" Margin="0,5" Text="Add Holiday  "/>
@@ -37,7 +37,7 @@
 
             <Rectangle 
                    Width="300"
-                   Height="100"
+                   Height="50"
                     />
 
             <TextBlock x:Name="arrivalText4" Margin="0,5" Text="Starting Date and Time  "/>
@@ -46,25 +46,36 @@
                 SelectedDateChanged="StartDatePicker_SelectedDateChanged" Width="300" />
             <TimePicker x:Name="startTimePicker" 
                  MinuteIncrement="1"
-                 SelectedTimeChanged="StartTimePicker_SelectedTimeChanged" Width="300" />
+                 SelectedTimeChanged="StartTimePicker_SelectedTimeChanged"   ClockIdentifier="24HourClock"/>
             <Rectangle 
                     Width="300"
-                    Height="50"
+                    Height="20"
                      />
+            <StackPanel >
+                <TextBlock x:Name="infoText" Margin="0,12" Text="Working Hours:" HorizontalAlignment="Left"/>
+                <TimePicker x:Name="startWorkTimePicker" Header="Start "  SelectedTimeChanged="StartWorkPicker_SelectedTimeChanged" 
+                            SelectedTime="08:00" ClockIdentifier="24HourClock"/>
+                <TimePicker x:Name="endWorkTimePicker" Header="End"  SelectedTimeChanged="EndWorkPicker_SelectedTimeChanged" 
+                            SelectedTime="16:00" ClockIdentifier="24HourClock"/>
+            </StackPanel>
+            <Rectangle 
+          Width="300"
+          Height="20"
+           />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
                 <TextBlock x:Name="arrivalText7" Margin="0,12" Text="Working days"/>
                 <NumberBox Value="{x:Bind Path=DaysNumberBoxValue, Mode=TwoWay}" />
-            </StackPanel>
-            <StackPanel>
-                <TextBlock x:Name="infoText" Margin="0,12" Text="Working Hours: 08:00 - 16:00" HorizontalAlignment="Left"/>
-            </StackPanel>
-            <Rectangle 
-                   Width="300"
-                   Height="50"
-                    />
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                <Rectangle 
+       Width="40"
+       Height="50"
+        />
                 <Button Content="Calculate" Click="CalculateDateButton_Click"
-                    VerticalAlignment="Bottom" Height="30" Width="100"/>
+     VerticalAlignment="Bottom" Height="30" Width="100"/>
+            </StackPanel>
+            
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+               
             </StackPanel>
         </StackPanel>
 
@@ -72,22 +83,22 @@
             <TextBlock x:Name="recurrentHolidayslText" Margin="0,12" Text="list of holidays:" HorizontalAlignment="Center"/>
             <Rectangle 
                   Width="300"
-                  Height="150"
+                  Height="100"
                    />
             <TextBlock x:Name="holidaysText" Margin="0,12" Text="list of holidays:" HorizontalAlignment="Center"/>
             <Rectangle 
                  Width="300"
-                 Height="150"
+                 Height="100"
                   />
             <TextBlock x:Name="startDateText" Margin="0,12" Text="Start date:" HorizontalAlignment="Center"/>
             <Rectangle 
                     Width="300"
-                    Height="150"
+                    Height="240"
                      />
             <TextBlock x:Name="resultText" Margin="0,12" Text="Result:" HorizontalAlignment="Center"/>
             <Rectangle 
                     Width="300"
-                    Height="40"
+                    Height="140"
                      />
         </StackPanel>
     </StackPanel>
