@@ -9,7 +9,7 @@ This simple app allows you to calculate the final date of a project or working t
 
 # Technoligies
 - .Net 6.0
-- Windows Ui
+- Windows UI
 - xUnit
 
 # Requirements
